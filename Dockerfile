@@ -4,8 +4,8 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /data
 
-# Install system dependencies (optional but useful)
-RUN apt-get update && apt-get install -y python3-distutils python3-setuptools && rm -rf /var/lib/apt/lists/*
+# Install pip/setuptools/wheel (modern replacements for distutils)
+RUN pip install --upgrade pip setuptools wheel
 
 # Install Django
 RUN pip install --no-cache-dir django==3.2
@@ -21,4 +21,3 @@ EXPOSE 8000
 
 # Start Django server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
